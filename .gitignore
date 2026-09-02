@@ -1,0 +1,27 @@
+# Dependencies (none currently vendored; future-proofing)
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE caches
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp files
+*.tmp
+*~

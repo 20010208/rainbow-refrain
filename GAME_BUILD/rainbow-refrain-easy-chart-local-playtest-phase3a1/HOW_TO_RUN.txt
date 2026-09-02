@@ -1,0 +1,112 @@
+Rainbow Refrain — LOCAL PLAYTEST BUILD (Phase 3D.4)
+NOT the 13KB submission artifact. For local EASY v2 / NORMAL v2 / HARD v2
++ Hold note testing only.
+
+Phase 3D.4 note: Phase 3D.3 only removed an active Hold's OWN gate on
+GAME OVER — a further audit found any OTHER unresolved gate (e.g. an
+ordinary note that just hadn't reached its own miss window yet) could
+still be left behind and keep rendering after GAME OVER. GAME OVER now
+goes through one shared cleanup step for all its trigger paths (a wrong-
+lane press, an early Hold release, a Hold timing out, or an ordinary note
+passing by unpressed) that clears every remaining runtime gate, so
+nothing stale can ever render again once GAME OVER is reached.
+
+Phase 3D.3 note: fixed two GAME OVER terminal-state bugs found by audit.
+(1) The GAME OVER screen was missing SCORE and BEST — it showed PERFECT/
+GOOD/MISS/MAX COMBO only. Both terminal screens (GAME OVER and RUN
+COMPLETE) now build their result text from the same shared, finalized
+source. (2) If a Hold was still active when an UNRELATED miss on another
+lane caused the third MISS, the held note's own gate could be left behind
+in memory and keep rendering after GAME OVER, even though activeHold
+itself was correctly cleared. Both terminal miss paths now also remove
+the held gate itself, so nothing stale renders once GAME OVER is reached.
+
+Phase 3D.2 note: fixed a transient judgment-popup bug (not a scoring
+bug — score/combo/misses were always correct internally, and the final
+result screen was always correct too). During dense sections (HARD
+especially), judgments can occur faster than the ~550ms each PERFECT/
+GOOD/MISS popup holds the screen — the popup used to read the combo/
+misses-left number LIVE when it finally got its turn, so a queued popup
+could show a number that no longer matched its own judgment (e.g. a
+PERFECT popup showing combo 0 because a MISS had already reset combo by
+the time it was shown). Popups now show the number as it truly was at
+their own judgment. Also: GAME OVER / RUN COMPLETE now pre-empt any
+STALE backlog of not-yet-shown popups the instant the run ends, so the
+result screen appears promptly instead of after a whole backlog
+finishes draining (the MISS that directly causes GAME OVER still gets
+its own turn shown first, as before).
+
+Phase 3D.1 note: replaced HARD with HARD v2 (still 158 notes, 8 Holds,
+same Hold times/lanes) — a Codex audit found the previous HARD chart's
+0.096s ("16th-note") decoder unit was misleading, since every note still
+landed on an even grid index (i.e. it was really only ever a 0.192s grid
+underneath). HARD v2 contains 16 genuine odd-16th-grid notes that are
+impossible on a 0.192s grid. REFERENCES/rainbow_refrain_hard_chart_v1.csv
+has been deleted and is no longer used anywhere.
+
+Phase 3D note: added HARD v1 (158 notes, 8 Holds, finer 16th-note-grid
+density than NORMAL) as a 3rd selectable difficulty. The title-screen
+selector is now EASY / NORMAL / HARD: UP/LEFT move backward and
+DOWN/RIGHT move forward through that list, WRAPPING at both ends (e.g.
+EASY + UP wraps to HARD) — this replaced the old 2-item EASY/NORMAL
+toggle, which no longer made sense with 3 options. Touch: tap whichever
+of the 3 columns you want.
+
+Phase 3C.1 note: all four arrow keys change the selection (no dead ends);
+this remains true with 3 items via wrap-around instead of a toggle.
+
+Phase 3C note: the title screen now has a DIFFICULTY selector (EASY /
+NORMAL, EASY is the default). Desktop: UP/DOWN or LEFT/RIGHT to change it,
+Space to start with whatever is selected. Touch: tap EASY or NORMAL to
+select it, then tap anywhere else to start (a tap on the selector only
+selects — it never also starts the run). The selector is locked once a
+run begins, and a retry (R) always restarts the SAME difficulty you were
+already playing — it never silently resets to EASY.
+
+EASY v2: 82 notes, 3 Holds (Human-approved, unchanged).
+NORMAL v2: 118 notes, 5 Holds (NEW — this build makes NORMAL's Human
+Playtest possible for the first time). Difficulty is purely note
+count/density/placement — Hold and TAP judgment windows, the 3-MISS
+GAME OVER rule, and the shared audio clock are IDENTICAL on both.
+
+Phase 3B.2 note: fixed a visual/judgment mismatch in the Hold end marker.
+The marker is now drawn with the SAME shape as its own lane (PINK=circle,
+GOLD=diamond, CYAN=square) instead of a generic ring, using the exact same
+shape-drawing code as the note head — and its stroke is now a thin,
+note-like line instead of accidentally inheriting the thick tail line's
+stroke width. The marker's visible edge now sits within ~1px (~5ms) of
+where release is actually judged, for all three lanes.
+
+Phase 3B.1 note: Hold notes show a clear END MARKER at the far end of the
+tail — that marker reaching the judgment line is your cue to RELEASE.
+Releasing is judged exactly like a normal note: release right as the
+marker crosses the line for PERFECT, a little early/late for GOOD, too
+early or not at all for MISS. Holding forever without releasing is not an
+automatic success — it will time out to a MISS once the window passes,
+just like an unpressed note would.
+
+Phase 3B note (unchanged): EASY chart v2 (82 notes, 3 of them Hold notes)
+replaced the old 118-note v1 chart.
+
+Phase 3A.2 clock architecture is unchanged: gameplay and the WAV still
+share ONE clock origin (audioContext.currentTime, captured only once the
+WAV is fully decoded). Pressing Space/Tap before decode finishes just
+holds briefly on the title screen.
+
+This build fetches audio/track.wav via fetch(), which most browsers block
+under the file:// origin. Serve this folder over local HTTP instead, e.g.
+from this directory:
+
+  npx serve .
+  (or) python -m http.server 8080
+
+then open the printed http://localhost:... address.
+
+What to check:
+- Title screen is silent.
+- Space (desktop) / Tap (touch) starts the run.
+- The reference WAV begins about 2.25 seconds after you start — that gap
+  is intentional (the pre-roll matches note travel time, so the first note
+  reaches the judgment line exactly when the WAV reaches its own 0.294s).
+- Notes should feel synced to the track throughout, not just at the start.
+- R restarts cleanly (WAV rewinds, chart resets, no double audio).

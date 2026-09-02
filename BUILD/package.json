@@ -1,0 +1,12 @@
+{
+  "name": "rainbow-refrain-local-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rainbow Refrain local MVP; no external services or publication workflow.",
+  "scripts": {
+    "test": "node ../TESTS/core.test.js",
+    "build": "node build.mjs",
+    "check": "node ../TESTS/static.test.js",
+    "runtime": "node ../TESTS/runtime.test.js"
+  }
+}

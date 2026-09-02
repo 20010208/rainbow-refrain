@@ -1,0 +1,15 @@
+b79382d8a8c84a0cc1f4984623b146c1a899bd4d05c555b0e60425c63536b8be  ./BUILD/build.mjs
+529730aaa1b5de3bb8211ee8f9c7d5c65405544fdb2d1605490f344bbedeef7e  ./BUILD/package.json
+958e14c8e9a4f71851bd3a3bf69da0c3a13453cd132cfd8b9324cba0ca61e7c3  ./DIST/index.html
+eec21db1e1ab45daa89f63cb7c2e1bf730e84183ad81f63eeed24f06b025499b  ./GAME_BUILD/rainbow-refrain-mvp.zip
+d6eb0793952c28d7728724a7ed700ad2e8d7ea747c96edfdc1ca81fd321da4d1  ./README_ARTIFACT.txt
+6f86498f9af9e6f958cb48c2041dce6b151268d8502d7a4f1e7d47b1b77c9307  ./REPORTS/mvp-gate-report.md
+685d35dd1a4316f64a1098f3bacf69844161114edbe179ec53ff2a583b328209  ./REPORTS/test-summary.txt
+9f08d7956bbcb369c2adfa44a893a52b5e615069f1694b8b787364446c917e81  ./REPORTS/unzip-test.txt
+df0e7db8408dc1d67291f2f116908ba2b519b31ad9bff3ab4cc8e08fc24eb238  ./REPORTS/verification.log
+0eada922db90ab32c5811a3dc83d465e51eb9f37996e27707e4ef7de6e7b7ce5  ./SOURCE/index.html
+0b148e5aaeb17488c0168dadc141b2a1354e45c842782e2bb065c13c60973aee  ./SOURCE/src/game-core.js
+1a804a1d9f9e08c70e6241d8a1dfca22c13daa95df0ea164f7192691137b687d  ./SOURCE/src/game.js
+7668d93a5ed474f7d6ec4c630b24a9d673a541d1479b43f1b3aecb83934daa0e  ./SOURCE/src/wavedash-adapter.js
+55c93ecbc82025663d0d7c4e28b5ea1ebd9560f4ed7a1b5695ee8ab0fb950758  ./TESTS/core.test.js
+864e0ef620cea41fce6f6a9129e53a6e50a4cdfd44c85c122d54b64a458f72d4  ./TESTS/static.test.js

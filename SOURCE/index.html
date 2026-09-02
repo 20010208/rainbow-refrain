@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rainbow Refrain — Local MVP</title>
+<style>
+:root{color-scheme:dark;--ink:#f8fbff;--glass:#11182dcc;--line:#d9e7ff66;--pink:#ff4f91;--gold:#ffd447;--cyan:#55d6ff}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#0a0f28;color:var(--ink);font:600 16px/1.35 system-ui,sans-serif}body{overflow:hidden}main{position:fixed;inset:0;display:grid;place-items:center}canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}#hud{position:fixed;top:max(12px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 24px));display:flex;justify-content:space-between;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(8px);pointer-events:none;text-shadow:0 1px 2px #000}.stat{min-width:74px}.value{display:block;font-size:1.2rem;color:#fff}.label{font-size:.68rem;letter-spacing:.12em;color:#b9c8e6}#help{position:fixed;left:50%;bottom:max(15px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(720px,calc(100% - 24px));padding:9px 12px;border:1px solid var(--line);border-radius:14px;background:var(--glass);text-align:center;font-size:.8rem;color:#dce8ff;pointer-events:none}.legend{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}.pink{color:var(--pink)}.gold{color:var(--gold)}.cyan{color:var(--cyan)}#status{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;opacity:0;font-size:clamp(1.2rem,4vw,2rem);text-shadow:0 2px 9px #000;pointer-events:none;transition:opacity .12s}#status.show{opacity:1}#status b{display:block;font-size:1.55em}kbd{padding:.1em .35em;border:1px solid #d9e7ff66;border-radius:5px;background:#ffffff14}
+</style>
+</head>
+<body>
+<main aria-label="Rainbow Refrain game"><canvas id="game" aria-label="Three lane color gate game"></canvas></main>
+<section id="hud" aria-live="polite"><div class="stat"><span class="label">SCORE</span><span class="value" id="score">0</span></div><div class="stat"><span class="label">COMBO</span><span class="value" id="combo">0</span></div><div class="stat"><span class="label">MISSES</span><span class="value" id="misses">0 / 3</span></div><div class="stat"><span class="label">STATE</span><span class="value" id="state">RUN</span></div></section>
+<p id="help">Match each gate’s color <strong>and symbol</strong> at the unicorn. <span class="legend"><span class="pink">● PINK</span><span class="gold">◆ GOLD</span><span class="cyan">■ CYAN</span></span><br><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> select lane · tap · <kbd>R</kbd> restart</p>
+<div id="status" role="status"></div>
+<script src="src/game-core.js"></script>
+<script src="src/wavedash-adapter.js"></script>
+<script src="src/game.js"></script>
+</body>
+</html>

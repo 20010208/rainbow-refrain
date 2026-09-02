@@ -1,0 +1,46 @@
+Browser verification 2026-08-23:
+- Opened http://127.0.0.1:4173/ only; no external site.
+- Canvas rendered full-screen Rainbow Refrain scene with procedural gradient, three colored lanes, cyan square gate, unicorn avatar, HUD (SCORE/COMBO/MISSES/STATE), and help text requiring color+symbol matching.
+- Browser console view returned No console output, so no boot-time console errors were observed.
+- External operations were not performed.
+
+Next: exercise restart and lane controls, then inspect console again.
+
+Browser interaction verification:
+- After local runtime elapsed, ArrowRight interaction was observed on a running game; the page reached the intended `STORM GOT YOU` state with `MISSES 3 / 3` and a restart prompt, and no visible runtime error.
+- Pressing `r` reset the HUD to `SCORE 0`, `COMBO 0`, `MISSES 0 / 3`, `STATE RUN`, with the same initial visual state/seed.
+- This confirms the game-over/restart path at the browser level. Lane switching was exercised as a keyboard event; direct lane-coordinate assertion remains covered by core tests.
+
+Pointer input verification:
+- Dispatched a local pointerdown event to the Canvas at the left-side lane coordinate using the browser runtime; event dispatch succeeded on a 1280×1100 CSS viewport.
+- The game was already in `STORM GOT YOU` state when the visual recheck completed, so the screenshot did not provide a clean visual assertion of the lane position. The core test covers lane mapping and boundary clamping; this browser pointer path was exercised without error.
+- Browser-side console execution produced no error during the event dispatch.
+
+Resource audit:
+- After a local restart, `performance.getEntriesByType('resource')` showed only `http://127.0.0.1:4173/src/game-core.js`, `src/wavedash-adapter.js`, `src/game.js`, and local favicon requests.
+- No non-local/external resource URL was observed. The favicon request is local to localhost.
+- This supports the external-network-free MVP gate; the static scanner also passed.
+
+Self-contained dist verification:
+- Opened http://127.0.0.1:4174/ serving only `dist/index.html`; the single-HTML package rendered the same Canvas scene, HUD, three lanes, gate and restart instructions.
+- Browser console view returned No console output for the dist build.
+- No external URL or service was used; the dist package remains local-only.
+
+Deterministic browser trace:
+- A local console trace reset the dist game and computed the first deterministic gate as lane 2 / CYAN, then dispatched a pointerdown to that lane.
+- The subsequent dist view showed `SCORE 15`, proving the selected first gate was hit and score logic executed in the browser. The run later reached `MISSES 3 / 3` and `STORM GOT YOU`, confirming the miss/game-over path also executes in the self-contained build.
+- No external operation was performed.
+
+Final DOM/resource accessibility audit on dist:
+- Canvas `aria-label` = `Three lane color gate game`.
+- Main region `aria-label` = `Rainbow Refrain game`.
+- HUD has `aria-live="polite"`.
+- Restart guidance is present in body text.
+- Three scripts are inline in the self-contained dist document.
+- `externalResources=[]`; all observed resources are same-origin localhost.
+
+Latest post-fix dist verification:
+- Re-loaded the rebuilt single-HTML dist on localhost:4174 after adding explicit [330, 440, 550] hit tones.
+- Canvas/HUD/three colored lanes/gate/restart guidance rendered normally.
+- Browser console view returned No console output.
+- The static test suite and zip test also passed after this change; artifact size is 4,719 bytes.
