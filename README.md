@@ -1,8 +1,20 @@
 # Rainbow Refrain
 
-A js13kGames 2026 entry: a browser-based rhythm game where colored, symbol-matched
-gates ("gates") fall down three lanes and must be tapped/held in time with an
-EDM track. Built as vanilla JS/HTML5 Canvas with no external runtime dependencies.
+A browser-based rhythm game prototype developed as a js13kGames 2026 submission
+candidate. Colored, symbol-matched gates fall down three lanes and must be
+tapped/held in rhythm. Built with vanilla JavaScript and HTML5 Canvas, without
+external runtime dependencies.
+
+### Scope and constraints / 制作上の制約
+
+The main build was designed around a **13 KB ZIP size limit**. As a result,
+the visual effects, presentation, and amount of content are intentionally
+modest compared with a full-scale game. The focus is on rhythm judgments,
+input handling, scoring, and game-state management within a strict size budget.
+
+本作は、**約13KBのZIP容量制限**を想定して制作したブラウザ向けリズムゲームの試作作品です。
+容量の制約から演出やコンテンツ量は控えめですが、リズム判定・入力処理・スコア管理・
+ゲーム進行といった基本部分の設計と実装に重点を置いています。
 
 ## Status
 
@@ -11,8 +23,9 @@ This repository holds the current local development state: the size-constrained
 local playtest build with three difficulties (EASY/NORMAL/HARD) and full Hold-note
 mechanics, the reference chart/audio data, and the test suites that validate both.
 
-No js13kGames submission, Wavedash publish, or public release has been performed.
-This repo is private and is not connected to any competition or publishing workflow.
+No js13kGames submission, Wavedash publish, or standalone game release has been
+performed. This source repository is public for review; the project is not
+connected to a competition submission or publishing workflow.
 
 ## Main files
 
