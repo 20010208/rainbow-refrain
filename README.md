@@ -27,6 +27,24 @@ No js13kGames submission, Wavedash publish, or standalone game release has been
 performed. This source repository is public for review; the project is not
 connected to a competition submission or publishing workflow.
 
+## Development approach / 制作の進め方
+
+本作品の制作にあたっては、既存の人気リズムゲームを参考にしながら、
+ゲームシステムや操作方法、譜面、難易度などを検討しました。
+特に、約13KBという容量制限の中で、どのような機能を優先するべきかを
+意識して仕様を決定しました。
+
+コードの実装には主にClaude CodeやCodexを活用し、私は企画・仕様設計、
+実装指示、動作確認、改善方針の検討を担当しました。
+完成した機能を実際に確認し、必要に応じて仕様や動作を調整しながら
+開発を進めました。
+
+The game concept, controls, note charts, and difficulty design were planned
+with reference to existing rhythm games. I prioritized essential mechanics
+under the approximately 13 KB ZIP size constraint. Claude Code and Codex
+assisted with code implementation; I led planning, specifications, testing,
+and iteration based on the resulting behavior.
+
 ## Main files
 
 - `SOURCE/` — the size-constrained submission source (`src/game-core.js`,
